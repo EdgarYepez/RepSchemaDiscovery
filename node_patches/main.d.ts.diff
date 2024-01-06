@@ -1,0 +1,4 @@
+3c3
+< import type { URL } from 'node:url';
+---
+> import type { URL } from 'url';

@@ -1,0 +1,12 @@
+1c1
+< import {MongoClient} from 'mongodb';
+---
+> import {MongoClient, ObjectId} from 'mongodb';
+24c24
+<       rawSchemaBatch.userId = databaseParam.userId;
+---
+>       rawSchemaBatch.userId = new ObjectId(databaseParam.userId);
+100c100
+<       rawSchemaBatch.userId = databaseParam.userId;
+---
+>       rawSchemaBatch.userId = new ObjectId(databaseParam.userId);

@@ -1,0 +1,20 @@
+--- app_org.ts	2024-01-06 09:34:27.664014400 +0000
++++ app.ts	2024-01-06 09:37:03.856013600 +0000
+@@ -7,7 +7,7 @@
+ import * as http from 'http';
+ import * as fs from 'fs';
+ import * as rfs from 'rotating-file-stream';
+-import * as SegfaultHandler from 'segfault-handler';
++//import * as SegfaultHandler from 'segfault-handler';
+ import * as cluster from 'cluster';
+ import * as os from 'os';
+ import setRoutes from './routes';
+@@ -28,7 +28,7 @@
+   });
+ } else {
+   const app = express();
+-  SegfaultHandler.registerHandler('crash.log');
++  //SegfaultHandler.registerHandler('crash.log');
+   // Logging middleware
+   // You can set morgan to log differently depending on your environment
+   if (app.get('env') === 'production') {
