@@ -16,7 +16,9 @@ RUN apt-get update \
         curl \
         git \
         gnupg \
+		less \
         mongodb \
+		mongo-tools \
         patch \
         texlive-base \
         texlive-latex-base \
@@ -49,25 +51,15 @@ RUN patch < patches/proxy.conf.json.diff proxy.conf.json
 RUN patch < patches/user.ts.diff server/models/user/user.ts
 RUN patch < patches/app.ts.diff server/app.ts
 RUN patch < patches/rawSchemaBatch.ts.diff server/controllers/rawSchema/rawSchemaBatch.ts
-RUN rm -rf patches
+RUN patch -R < patches/.env.diff .env
+RUN patch -R < patches/rawSchemaUnorderedResult.diff server/controllers/rawSchema/rawSchemaUnorderedResult.ts
+RUN rm -rf patches 
 
 # Install code dependencies.
 RUN npm install -f
 RUN npm install -f @types/ws@8.5.4
 RUN npm install -f --save dotenv
 
-# Copy and apply dependency patches.
-RUN mkdir -p ./node_patches
-COPY node_patches ./node_patches
-RUN patch < node_patches/main.d.ts.diff node_modules/dotenv/lib/main.d.ts
-RUN rm -rf node_patches
-
-# Build the application.
-RUN ng build
-
-# Copy smoke.sh script.
-COPY smoke .
-RUN chmod +x smoke.sh
 
 # Clone repository for source data for experiments
 RUN git clone https://github.com/mmathioudakis/geotopics.git
