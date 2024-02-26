@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "definitions": {},
+  "properties": {
+    "timeZoneOffset": {
+      "name": "timeZoneOffset",
+      "type": "number"
+    },
+    "foursquareURL": {
+      "name": "foursquareURL",
+      "type": "string"
+    },
+    "foursquareUserId": {
+      "name": "foursquareUserId",
+      "type": "string"
+    },
+    "timestamp": {
+      "name": "timestamp",
+      "type": "number"
+    },
+    "swarmURL": {
+      "name": "swarmURL",
+      "type": "string"
+    },
+    "_id": {
+      "name": "_id",
+      "type": "string"
+    },
+    "venueId": {
+      "name": "venueId",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "timeZoneOffset",
+    "foursquareURL",
+    "foursquareUserId",
+    "timestamp",
+    "swarmURL",
+    "_id",
+    "venueId"
+  ]
+}

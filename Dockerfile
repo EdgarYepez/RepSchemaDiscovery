@@ -20,6 +20,7 @@ RUN apt-get update \
         mongodb \
 		mongo-tools \
         patch \
+		python3-pip \
         texlive-base \
         texlive-latex-base \
         texlive-xetex \
@@ -30,6 +31,10 @@ RUN apt-get update \
     && npm install -g @angular/cli@13.0.0 \
     && npm install -g typescript
 
+# install python dependencies
+RUN pip install deepdiff
+RUN pip install requests
+ 
 # Create a working directory and access into it.
 RUN mkdir -p /home/repro_project
 WORKDIR /home/repro_project
@@ -60,6 +65,11 @@ RUN npm install -f
 RUN npm install -f @types/ws@8.5.4
 RUN npm install -f --save dotenv
 
+# Copy doAll.sh script and helpers
+COPY scripts .
+RUN chmod +x doAll.sh
+RUN chmod +x main_experiment.py
+RUN chmod +x json_deepdiff.py
 
 # Clone repository for source data for experiments
 RUN git clone https://github.com/mmathioudakis/geotopics.git
@@ -73,6 +83,12 @@ RUN mkdir ./data_source
 RUN mv ./geotopics/data/* ./data_source
 RUN rm -rf geotopics/
 
+# Set experiment directory
+RUN mkdir ./experiment
+COPY schema_reference/firenze_checkins_reference_schema.json ./experiment/firenze_checkins_reference_schema.json
+
 # Clone LaTeX report repository
 RUN git clone https://github.com/EdgarYepez/RepSchemaDiscovery-Report.git
 RUN mv RepSchemaDiscovery-Report/ report
+
+EXPOSE 4200
